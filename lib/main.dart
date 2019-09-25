@@ -40,6 +40,8 @@ class _MyAppState extends State<MyApp> {
   List<Widget> pieces = [];
   SharedPreferences prefs;
 
+  bool _overlayVisible = true;
+
   @override
   void initState() {
     super.initState();
@@ -74,6 +76,7 @@ class _MyAppState extends State<MyApp> {
         _image = image;
         _imagePath = _image.path;
         pieces.clear();
+        ScoreWidget.of(context).allInPlaceCount = 0;
       });
     }
     splitImage(Image.file(image));
@@ -157,8 +160,6 @@ class _MyAppState extends State<MyApp> {
                       OverlayEntry(builder: (context) {
                         return CorrectOverlay(true, () {
                           setState(() {
-                            _image = null;
-                            pieces.clear();
                             ScoreWidget.of(context).allInPlaceCount = 0;
                           });
                         });
